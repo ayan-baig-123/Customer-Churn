@@ -187,9 +187,8 @@ def load_data():
         errors="coerce"
     )
 
-    df["TotalCharges"].fillna(
-        df["TotalCharges"].median(),
-        inplace=True
+    df["TotalCharges"] = df["TotalCharges"].fillna(
+    df["TotalCharges"].median()
     )
 
     df.drop(columns=["customerID"], inplace=True)
@@ -361,48 +360,50 @@ st.markdown("<br>", unsafe_allow_html=True)
 # =========================================
 def encode_input():
 
-    return np.array([[
-        0 if gender == "Female" else 1,
+    return pd.DataFrame([[
 
-        1 if senior == "Yes" else 0,
+    0 if gender == "Female" else 1,
 
-        1 if partner == "Yes" else 0,
+    1 if senior == "Yes" else 0,
 
-        1 if dependents == "Yes" else 0,
+    1 if partner == "Yes" else 0,
 
-        1 if phone == "Yes" else 0,
+    1 if dependents == "Yes" else 0,
 
-        0 if multiple == "No" else 1,
+    1 if phone == "Yes" else 0,
 
-        0 if internet == "No"
-        else (1 if internet == "DSL" else 2),
+    0 if multiple == "No" else 1,
 
-        1 if online_sec == "Yes" else 0,
+    0 if internet == "No"
+    else (1 if internet == "DSL" else 2),
 
-        1 if online_backup == "Yes" else 0,
+    1 if online_sec == "Yes" else 0,
 
-        1 if device == "Yes" else 0,
+    1 if online_backup == "Yes" else 0,
 
-        1 if tech == "Yes" else 0,
+    1 if device == "Yes" else 0,
 
-        1 if tv == "Yes" else 0,
+    1 if tech == "Yes" else 0,
 
-        1 if movies == "Yes" else 0,
+    1 if tv == "Yes" else 0,
 
-        0 if contract == "Month-to-month"
-        else (1 if contract == "One year" else 2),
+    1 if movies == "Yes" else 0,
 
-        1 if paperless == "Yes" else 0,
+    0 if contract == "Month-to-month"
+    else (1 if contract == "One year" else 2),
 
-        0 if payment == "Electronic check"
-        else 1 if payment == "Mailed check"
-        else 2 if payment == "Bank transfer (automatic)"
-        else 3,
+    1 if paperless == "Yes" else 0,
 
-        monthly,
-        total,
-        tenure
-    ]])
+    0 if payment == "Electronic check"
+    else 1 if payment == "Mailed check"
+    else 2 if payment == "Bank transfer (automatic)"
+    else 3,
+
+    monthly,
+    total,
+    tenure
+
+]], columns=x.columns)
 
 # =========================================
 # PREDICTION
